@@ -30,15 +30,26 @@
 - Listen for `poll:results` to get live counts.
 - For testing , just paste this in browser console:
 
-    (async () => {
-      const s = document.createElement('script');
-      s.src = "https://cdn.socket.io/4.7.5/socket.io.min.js";
-      document.head.appendChild(s);
-      await new Promise(r => s.onload = r);
+You can test the live update feature directly in your browser console:
 
-      const socket = io("http://localhost:3000");
-      socket.on("connect", () => console.log("connected", socket.id));
+(async () => {
+  const s = document.createElement('script');
+  s.src = "https://cdn.socket.io/4.7.5/socket.io.min.js";
+  document.head.appendChild(s);
+  await new Promise(r => s.onload = r);
 
-      socket.emit("joinPoll", 1);
-      socket.on("poll:results", (payload) => console.log("LIVE RESULTS:", payload));
-    })();
+  const socket = io("http://localhost:3000");
+  socket.on("connect", () => console.log("Connected:", socket.id));
+
+  // Join a poll room
+  socket.emit("joinPoll", 1);
+
+  // Listen for results broadcast
+  socket.on("poll:results", (payload) => {
+    console.log("LIVE RESULTS:", payload);
+  });
+})();
+
+- Each poll has its own room (e.g., poll:1).
+- After joining, when any user votes, the latest results are broadcast instantly to everyone in that room.
+
