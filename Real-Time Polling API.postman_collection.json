@@ -1,0 +1,304 @@
+{
+	"info": {
+		"_postman_id": "4fd44474-0fe3-400f-923e-04abcb22f326",
+		"name": "Real-Time Polling API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14177580"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create User (Alice)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Alice\", \"email\": \"alice@example.com\", \"password\": \"secret\"}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User (Bob)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Bob\", \"email\": \"bob@example.com\", \"password\": \"secret\"}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/users/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Polls",
+			"item": [
+				{
+					"name": "Create Poll",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-user-id",
+								"value": "{{userId}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"question\": \"Best programming language?\", \"isPublished\": true, \"options\": [\"JavaScript\", \"Python\", \"C#\"]}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/polls",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"polls"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Polls",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/polls",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"polls"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Poll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/polls/{{pollId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"polls",
+								"{{pollId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unpublish Poll",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-user-id",
+								"value": "{{userId}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"isPublished\": false}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/polls/{{pollId}}/publish",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"polls",
+								"{{pollId}}",
+								"publish"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Votes",
+			"item": [
+				{
+					"name": "Cast Vote (Alice)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-user-id",
+								"value": "{{userId}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"optionId\": \"{{optionAlice}}\"}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/polls/{{pollId}}/votes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"polls",
+								"{{pollId}}",
+								"votes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cast Vote (Bob)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-user-id",
+								"value": "2"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"optionId\": \"{{optionBob}}\"}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/polls/{{pollId}}/votes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"polls",
+								"{{pollId}}",
+								"votes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/health",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000"
+		},
+		{
+			"key": "userId",
+			"value": "1"
+		},
+		{
+			"key": "pollId",
+			"value": "1"
+		},
+		{
+			"key": "optionAlice",
+			"value": "2"
+		},
+		{
+			"key": "optionBob",
+			"value": "3"
+		}
+	]
+}
