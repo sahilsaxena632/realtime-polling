@@ -21,6 +21,24 @@
 - `PATCH /api/polls/:id/publish` (header `x-user-id`) { isPublished: true|false }
 - `POST /api/polls/:id/votes` (header `x-user-id`) { optionId }
 
-## WebSocket
+## Testing APIs
+- A file is added with the name of "Real-Time Polling API.postman_collection" , just import in postman to test the APIs.
+- For testing with cURL requests another word doc is added with the name of "cURL testing".
+
+## WebSocket - Testing
 - Connect to Socket.IO, then `socket.emit("joinPoll", <pollId>)`
 - Listen for `poll:results` to get live counts.
+- For testing , just paste this in browser console:
+
+    (async () => {
+      const s = document.createElement('script');
+      s.src = "https://cdn.socket.io/4.7.5/socket.io.min.js";
+      document.head.appendChild(s);
+      await new Promise(r => s.onload = r);
+
+      const socket = io("http://localhost:3000");
+      socket.on("connect", () => console.log("connected", socket.id));
+
+      socket.emit("joinPoll", 1);
+      socket.on("poll:results", (payload) => console.log("LIVE RESULTS:", payload));
+    })();
