@@ -48,7 +48,8 @@ You can test the live update feature directly in your browser console:
   socket.on("poll:results", (payload) => {
     console.log("LIVE RESULTS:", payload);
   });
-})();```
+})();
+```
 
 - Each poll has its own room (e.g., poll:1).
 - After joining, when any user votes, the latest results are broadcast instantly to everyone in that room.
